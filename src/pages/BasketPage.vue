@@ -4,8 +4,6 @@ import LeftArrow from "@/components/icons/LeftArrow.vue";
 import { useProductsStore } from "@/stores/productsStore";
 import { ref } from 'vue';
 
-
-
 const productsStore = useProductsStore();
 </script>
 

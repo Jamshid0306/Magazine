@@ -12,6 +12,7 @@ export const useProductsStore = defineStore("product", {
     allsum: 0,
     productAmount: 1,
     totalsum: 0,
+    drawer: null,
   }),
   actions: {
     async getFetchProducts(skip = 0, search = "", limit = 8) {
@@ -81,8 +82,12 @@ export const useProductsStore = defineStore("product", {
         this.products?.sort((a, b) => a.price - b.price);
       }
     },
-    plusAmount(){
-      this.productAmount++
+    plusAmount(id){
+      const productIndex = this.basket.findIndex((item) => item.id === id);
+      if (productIndex !== 0) {
+        this.basket[productIndex].amount++;
+      }
+      console.log(this.basket[productIndex].amount);
     },
     minusAmount(){
       this.productAmount--

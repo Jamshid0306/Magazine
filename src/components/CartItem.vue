@@ -34,7 +34,7 @@ const props = defineProps({
 //     return totalPrice.toFixed(0);
 // });
 
-console.log(props.product.amount);
+// console.log(props.product.amount);
 </script>
 
 <template>
@@ -64,7 +64,7 @@ console.log(props.product.amount);
             </button>
             <!-- <input v-model="inputc" class="product__theme-count-number-n" type="number" name="" id="" /> -->
             <p>{{ productsStore.productAmount }}</p>
-            <button class="product__theme-count-number-b" @click="productsStore.plusAmount()">
+            <button class="product__theme-count-number-b" @click="productsStore.plusAmount(product.id)">
                 +
             </button>
         </div>
