@@ -23,11 +23,9 @@ const productStore = useProductsStore()
       <img :src="product.thumbnail" alt="" loading="lazy" class="product-in__img" />
     </div>
     <div class="product__detail">
-      <div class="product__icons">
-        <RouterLink class="button" to="/">
+      <RouterLink to="/basket/" class="buy__icon">
           <BuyIcon @click="productStore.addBasket(product.id)"/>
-        </RouterLink>
-      </div>
+      </RouterLink>
       <h2 class="product__title">{{ product.title }}</h2>
       <p class="product__desc">{{ product.description }}</p>
       <div class="product__percent-block">

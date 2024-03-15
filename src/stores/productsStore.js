@@ -43,7 +43,23 @@ export const useProductsStore = defineStore("product", {
       if (productId.id !== productBasket?.id) {
         this.basket.push(productId);
         this.navCount++;
-        this.allsum += Math.round(productId.price * (1 - productId.discountPercentage / 100));
+        this.allsum += Math.round(
+          productId.price * (1 - productId.discountPercentage / 100)
+        );
+      }
+    },
+
+    incrementQuantity(id) {
+      const productIndex = this.drawer.findIndex((item) => item.id === id);
+      if (productIndex !== -1) {
+        this.drawer[productIndex].quantity++;
+      }
+    },
+
+    decrementQuantity(id) {
+      const productIndex = this.drawer.findIndex((item) => item.id === id);
+      if (productIndex !== -1 && this.drawer[productIndex].quantity > 1) {
+        this.drawer[productIndex].quantity--;
       }
     },
     dellBasket(id) {
@@ -51,7 +67,9 @@ export const useProductsStore = defineStore("product", {
       const productBasket = this.basket.findIndex((item) => item.id == id);
       this.basket.splice(productBasket, 1);
       this.navCount--;
-      this.allsum -= Math.round(basketId.price * (1 - basketId.discountPercentage / 100));
+      this.allsum -= Math.round(
+        basketId.price * (1 - basketId.discountPercentage / 100)
+      );
     },
     getSortedProducts(value) {
       if (value === "expensive") {
