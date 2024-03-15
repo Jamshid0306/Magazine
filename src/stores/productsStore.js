@@ -10,6 +10,8 @@ export const useProductsStore = defineStore("product", {
     basket: [],
     navCount: 0,
     allsum: 0,
+    productAmount: 1,
+    totalsum: 0,
   }),
   actions: {
     async getFetchProducts(skip = 0, search = "", limit = 8) {
@@ -41,21 +43,19 @@ export const useProductsStore = defineStore("product", {
       const productId = this.products.find((item) => item.id == id);
       const productBasket = this.basket.find((item) => item.id == id);
       if (productId.id !== productBasket?.id) {
-        this.basket.push(productId);
+        this.basket.push({...productId, amount: 1});
         this.navCount++;
         this.allsum += Math.round(
           productId.price * (1 - productId.discountPercentage / 100)
         );
       }
     },
-
     incrementQuantity(id) {
       const productIndex = this.drawer.findIndex((item) => item.id === id);
       if (productIndex !== -1) {
         this.drawer[productIndex].quantity++;
       }
     },
-
     decrementQuantity(id) {
       const productIndex = this.drawer.findIndex((item) => item.id === id);
       if (productIndex !== -1 && this.drawer[productIndex].quantity > 1) {
@@ -80,6 +80,12 @@ export const useProductsStore = defineStore("product", {
       } else if (value === "cheap") {
         this.products?.sort((a, b) => a.price - b.price);
       }
+    },
+    plusAmount(){
+      this.productAmount++
+    },
+    minusAmount(){
+      this.productAmount--
     },
   },
   persist: true,
