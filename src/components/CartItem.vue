@@ -46,13 +46,13 @@ function productCount(product) {
             </h2>
         </div>
         <div class="product__theme-count-number">
-            <button class="product__theme-count-number-b" @click="productCount(product), productsStore.minusAmount()">
+            <button class="product__theme-count-number-b" @click="productCount(product), productsStore.controlAmount()">
                 -
             </button>
             <!-- <input v-model="inputc" class="product__theme-count-number-n" type="number" name="" id="" /> -->
             <p class="cart__item-count">{{ product.amount }}</p>
             <button class="product__theme-count-number-b"
-                @click="product.amount++, productsStore.minusAmount(), productsStore.navCount += 1">
+                @click="product.amount++, productsStore.controlAmount(), productsStore.navCount += 1">
                 +
             </button>
         </div>

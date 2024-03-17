@@ -18,8 +18,19 @@ const router = createRouter({
     {
       path: '/category-single/:category',
       name: 'category-single',
-      component: () => import('@/pages/CategorySinglePage.vue')
-      
+      component: () => import('@/pages/CategorySinglePage.vue'),
+      beforeEnter(to, from) {
+        const productsStore = useProductsStore()
+        const exists = productsStore.categoryTitles.includes(to.params.category);
+        if (!exists) {
+          return {
+            name: "NotFound",
+            params: { pathMatch: to.path.split("/").slice(1) },
+            query: to.query,
+            hash: to.hash,
+          };
+        }
+      },
     },
     {
       path: '/basket/',
@@ -35,6 +46,7 @@ const router = createRouter({
         const exists = productStore.products?.find(
           item => item.id == to.params.id
         );
+        console.log(exists);
         if (!exists) {
           return {
             name: "NotFound",

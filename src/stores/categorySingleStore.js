@@ -6,14 +6,13 @@ export const useCategoryStore = defineStore("category", {
     category: null,
   }),
   actions: {
-    async getProductByCategory(category){
-        try {
-            const res = await apiProducts.getProductsByCategory(category)
-            this.category = res.products
-            // console.log(res.products);
-        } catch (error) {
-            console.error(error);
-        }
+    async getProductByCategory(category) {
+      try {
+        const res = await apiProducts.getProductsByCategory(category)
+        this.category = res.products
+      } catch (error) {
+        console.error(error);
+      }
     }
   },
 });

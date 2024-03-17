@@ -24,7 +24,7 @@ const productStore = useProductsStore()
     </div>
     <div class="product__detail">
       <RouterLink to="/basket/" class="buy__icon">
-          <BuyIcon @click="productStore.addBasket(product), productStore.minusAmount(), productStore.navCount ++"/>
+          <BuyIcon @click="productStore.addBasket(product), productStore.controlAmount(), productStore.navCount ++"/>
       </RouterLink>
       <h2 class="product__title">{{ product.title }}</h2>
       <p class="product__desc">{{ product.description }}</p>

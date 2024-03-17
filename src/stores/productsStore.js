@@ -56,33 +56,15 @@ export const useProductsStore = defineStore("product", {
         })
       }
     },
-    
-    
-    
-    
-    
-    
-    
-    
     dellBasket(id, totalSum, amount) {
       const basketId = this.basket.find((item) => item.id == id);
       const productBasket = this.basket.findIndex((item) => item.id == id);
-      console.log(productBasket);
-      if( basketId.id == id ){
+      if (basketId.id == id) {
         this.basket.splice(productBasket, 1)
       }
       this.navCount -= amount
       this.allsum -= totalSum
     },
-    
-    
-    
-    
-    
-    
-    
-    
-    
     getSortedProducts(value) {
       if (value === "expensive") {
         this.products?.sort((a, b) => b.price - a.price);
@@ -93,18 +75,7 @@ export const useProductsStore = defineStore("product", {
         this.products?.sort((a, b) => a.price - b.price);
       }
     },
-    plusAmount() {
-      // const productIndex = this.basket.find((item) => item.id === id);
-      // if (productIndex.id == id) {
-      //   productIndex.amount++
-      //   this.allsum = this.allsum + (Math.round(productIndex.price * (1 - productIndex.discountPercentage / 100)))
-      // }
-      let num = 0;
-      this.basket.forEach((product) => {
-        this.allsum = num += product.totalSum
-      })
-    },
-    minusAmount() {
+    controlAmount() {
       let num = 0;
       this.basket.forEach((product) => {
         this.allsum = num += product.totalSum
