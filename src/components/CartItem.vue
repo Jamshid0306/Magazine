@@ -59,11 +59,11 @@ const props = defineProps({
             </h2>
         </div>
         <div class="product__theme-count-number">
-            <button class="product__theme-count-number-b" @click="productsStore.minusAmount()">
+            <button class="product__theme-count-number-b" @click="productsStore.minusAmount(product)">
                 -
             </button>
             <!-- <input v-model="inputc" class="product__theme-count-number-n" type="number" name="" id="" /> -->
-            <p>{{ productsStore.productAmount }}</p>
+            <p class="cart__item-count" >{{ product.amount }}</p>
             <button class="product__theme-count-number-b" @click="productsStore.plusAmount(product.id)">
                 +
             </button>

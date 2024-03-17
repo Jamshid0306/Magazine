@@ -10,9 +10,7 @@ export const useProductsStore = defineStore("product", {
     basket: [],
     navCount: 0,
     allsum: 0,
-    productAmount: 1,
     totalsum: 0,
-    drawer: null,
   }),
   actions: {
     async getFetchProducts(skip = 0, search = "", limit = 8) {
@@ -44,23 +42,11 @@ export const useProductsStore = defineStore("product", {
       const productId = this.products.find((item) => item.id == id);
       const productBasket = this.basket.find((item) => item.id == id);
       if (productId.id !== productBasket?.id) {
-        this.basket.push({...productId, amount: 1});
+        this.basket.push({ ...productId, amount: 1 });
         this.navCount++;
         this.allsum += Math.round(
           productId.price * (1 - productId.discountPercentage / 100)
         );
-      }
-    },
-    incrementQuantity(id) {
-      const productIndex = this.drawer.findIndex((item) => item.id === id);
-      if (productIndex !== -1) {
-        this.drawer[productIndex].quantity++;
-      }
-    },
-    decrementQuantity(id) {
-      const productIndex = this.drawer.findIndex((item) => item.id === id);
-      if (productIndex !== -1 && this.drawer[productIndex].quantity > 1) {
-        this.drawer[productIndex].quantity--;
       }
     },
     dellBasket(id) {
@@ -82,15 +68,22 @@ export const useProductsStore = defineStore("product", {
         this.products?.sort((a, b) => a.price - b.price);
       }
     },
-    plusAmount(id){
-      const productIndex = this.basket.findIndex((item) => item.id === id);
-      if (productIndex !== 0) {
-        this.basket[productIndex].amount++;
+    plusAmount(id) {
+      const productIndex = this.basket.find((item) => item.id === id);
+      if(productIndex.id == id){
+        productIndex.amount++
+        this.allsum = this.allsum + (Math.round(productIndex.price * (1 - productIndex.discountPercentage / 100)))
       }
-      console.log(this.basket[productIndex].amount);
     },
-    minusAmount(){
-      this.productAmount--
+    minusAmount(product) {
+      const productIndex = this.basket.find((item) => item.id === product.id);
+      if(productIndex.id == product.id){
+        productIndex.amount--
+      } if(product.amount == 0){
+        this.dellBasket(productIndex.id) 
+        this.allsum = this.allsum - (Math.round(productIndex.price * (1 - productIndex.discountPercentage / 100)))
+        
+      }
     },
   },
   persist: true,

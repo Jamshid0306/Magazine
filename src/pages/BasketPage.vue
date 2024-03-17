@@ -16,7 +16,7 @@ const productsStore = useProductsStore();
         </RouterLink>
         <h1 class="basket__title">basket</h1>
         <div class="basket__page-total">
-            <h2 class="total">Total: $</h2>
+            <h2 class="total">Total: $ {{ productsStore.allsum }}</h2>
         </div>
     </div>
       <div class="basket__page-main" v-for="item in productsStore.basket" :key="item.id">
