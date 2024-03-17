@@ -13,28 +13,15 @@ const props = defineProps({
     },
 });
 
+function productCount(product) {
+    if (product.amount == 1) {
+        productsStore.dellBasket(product.id, product.totalSum, product.amount)
+    } else {
+        product.amount--
+        productsStore.navCount -= 1
+    }
+}
 
-// const decreaseQuantity = () => {
-//     productQuantity.value = Math.max(1, productQuantity.value - 1);
-// };
-
-// const increaseQuantity = () => {
-//     productQuantity.value++;
-// };
-
-// const calculateFormatted = (product) => {
-//     const discountedPrice = product.price - (product.price / 100) * product.discountPercentage;
-//     console.log(product.amount);
-//     product.amount++    
-//     return product.amount++
-// };
-
-// const totalFormattedPrice = computed(() => {
-//     const totalPrice = calculateFormatted(props.product) * productQuantity.value;
-//     return totalPrice.toFixed(0);
-// });
-
-// console.log(props.product.amount);
 </script>
 
 <template>
@@ -54,22 +41,23 @@ const props = defineProps({
             </div>
             <h2 class="product__price">
                 ${{
-                Math.round(product.price * (1 - product.discountPercentage / 100))
+                Math.round(product.totalSum * (1 - product.discountPercentage / 100))
             }}
             </h2>
         </div>
         <div class="product__theme-count-number">
-            <button class="product__theme-count-number-b" @click="productsStore.minusAmount(product)">
+            <button class="product__theme-count-number-b" @click="productCount(product), productsStore.minusAmount()">
                 -
             </button>
             <!-- <input v-model="inputc" class="product__theme-count-number-n" type="number" name="" id="" /> -->
-            <p class="cart__item-count" >{{ product.amount }}</p>
-            <button class="product__theme-count-number-b" @click="productsStore.plusAmount(product.id)">
+            <p class="cart__item-count">{{ product.amount }}</p>
+            <button class="product__theme-count-number-b"
+                @click="product.amount++, productsStore.minusAmount(), productsStore.navCount += 1">
                 +
             </button>
         </div>
         <div class="cart__item-blocks">
-            <DeleteIcon @click="productsStore.dellBasket(product.id)" :size="45" />
+            <DeleteIcon @click="productsStore.dellBasket(product.id, product.totalSum, product.amount)" :size="45" />
         </div>
     </div>
 </template>

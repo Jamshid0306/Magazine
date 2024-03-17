@@ -38,26 +38,51 @@ export const useProductsStore = defineStore("product", {
         console.error(error);
       }
     },
-    addBasket(id) {
-      const productId = this.products.find((item) => item.id == id);
-      const productBasket = this.basket.find((item) => item.id == id);
-      if (productId.id !== productBasket?.id) {
-        this.basket.push({ ...productId, amount: 1 });
-        this.navCount++;
-        this.allsum += Math.round(
-          productId.price * (1 - productId.discountPercentage / 100)
-        );
+    addBasket(product) {
+      const idbasket = this.basket.find((item) => item.id == product.id);
+      if (idbasket?.id !== product.id) {
+        this.basket.push({
+          ...product,
+          amount: 1,
+          get totalSum() {
+            return this.price * this.amount;
+          }
+        })
+      } else {
+        this.basket.forEach((item) => {
+          if (item.id == product.id) {
+            item.amount++
+          }
+        })
       }
     },
-    dellBasket(id) {
+    
+    
+    
+    
+    
+    
+    
+    
+    dellBasket(id, totalSum, amount) {
       const basketId = this.basket.find((item) => item.id == id);
       const productBasket = this.basket.findIndex((item) => item.id == id);
-      this.basket.splice(productBasket, 1);
-      this.navCount--;
-      this.allsum -= Math.round(
-        basketId.price * (1 - basketId.discountPercentage / 100)
-      );
+      console.log(productBasket);
+      if( basketId.id == id ){
+        this.basket.splice(productBasket, 1)
+      }
+      this.navCount -= amount
+      this.allsum -= totalSum
     },
+    
+    
+    
+    
+    
+    
+    
+    
+    
     getSortedProducts(value) {
       if (value === "expensive") {
         this.products?.sort((a, b) => b.price - a.price);
@@ -68,22 +93,22 @@ export const useProductsStore = defineStore("product", {
         this.products?.sort((a, b) => a.price - b.price);
       }
     },
-    plusAmount(id) {
-      const productIndex = this.basket.find((item) => item.id === id);
-      if(productIndex.id == id){
-        productIndex.amount++
-        this.allsum = this.allsum + (Math.round(productIndex.price * (1 - productIndex.discountPercentage / 100)))
-      }
+    plusAmount() {
+      // const productIndex = this.basket.find((item) => item.id === id);
+      // if (productIndex.id == id) {
+      //   productIndex.amount++
+      //   this.allsum = this.allsum + (Math.round(productIndex.price * (1 - productIndex.discountPercentage / 100)))
+      // }
+      let num = 0;
+      this.basket.forEach((product) => {
+        this.allsum = num += product.totalSum
+      })
     },
-    minusAmount(product) {
-      const productIndex = this.basket.find((item) => item.id === product.id);
-      if(productIndex.id == product.id){
-        productIndex.amount--
-      } if(product.amount == 0){
-        this.dellBasket(productIndex.id) 
-        this.allsum = this.allsum - (Math.round(productIndex.price * (1 - productIndex.discountPercentage / 100)))
-        
-      }
+    minusAmount() {
+      let num = 0;
+      this.basket.forEach((product) => {
+        this.allsum = num += product.totalSum
+      })
     },
   },
   persist: true,
