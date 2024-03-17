@@ -30,20 +30,20 @@ const router = createRouter({
       path: '/about/:id',
       name: 'about',
       component: () => import('@/pages/AboutPage.vue'),
-      // beforeEnter(to, from) {
-      //   const productStore = useProductsStore()
-      //   const exists = productStore.products?.find(
-      //     item => item.id == to.params.id
-      //   );
-      //   if (!exists) {
-      //     return {
-      //       name: "NotFound",
-      //       params: { pathMatch: to.path.split("/").slice(1) },
-      //       query: to.query,
-      //       hash: to.hash,
-      //     };
-      //   }
-      // },
+      beforeEnter(to, from) {
+        const productStore = useProductsStore()
+        const exists = productStore.products?.find(
+          item => item.id == to.params.id
+        );
+        if (!exists) {
+          return {
+            name: "NotFound",
+            params: { pathMatch: to.path.split("/").slice(1) },
+            query: to.query,
+            hash: to.hash,
+          };
+        }
+      },
     },
     {
       path: '/:pathMatch(.*)*',
