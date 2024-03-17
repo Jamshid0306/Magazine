@@ -32,21 +32,15 @@ const router = createRouter({
         }
       },
     },
-    {
-      path: '/basket/',
-      name: 'basket',
-      component: () => import('@/pages/BasketPage.vue')
-    },
+
+    
     {
       path: '/about/:id',
       name: 'about',
       component: () => import('@/pages/AboutPage.vue'),
       beforeEnter(to, from) {
-        const productStore = useProductsStore()
-        const exists = productStore.products?.find(
-          item => item.id == to.params.id
-        );
-        console.log(exists);
+        const productsStore = useProductsStore();
+        const exists = to.params.id <= productsStore?.total && to.params.id > 0;
         if (!exists) {
           return {
             name: "NotFound",
@@ -58,13 +52,18 @@ const router = createRouter({
       },
     },
     {
+      path: '/basket/',
+      name: 'basket',
+      component: () => import('@/pages/BasketPage.vue')
+    },
+    {
       path: '/:pathMatch(.*)*',
       name: "NotFound",
       component: () => import('@/pages/NotFound.vue'),
     },
-    
+
   ],
-  scrollBehavior (to, from, savedPosition) {
+  scrollBehavior(to, from, savedPosition) {
     return {
       top: 0
     }

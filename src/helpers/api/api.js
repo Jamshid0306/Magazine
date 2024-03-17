@@ -2,7 +2,6 @@ import axiosClient from "./axiosClient"
 
 const apiProducts = {
     getProducts(skip, search, limit) {
-        // const url = `products?limit=${limit}&skip=${skip}`
         const url = `products/search?q=${search}&skip=${skip}&limit=${limit}`
         return axiosClient.get(url)
     },
