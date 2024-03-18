@@ -4,9 +4,11 @@ import LeftArrow from "@/components/icons/LeftArrow.vue";
 import Empty from "@/views/Empty.vue"
 import BasketIcon from "@/components/icons/BasketIcon.vue"
 import { useProductsStore } from "@/stores/productsStore";
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 
 const productsStore = useProductsStore();
+
+
 </script>
 
 <template>
@@ -18,7 +20,7 @@ const productsStore = useProductsStore();
           <h1 class="basket__title">basket</h1>
         </RouterLink>
         <div class="basket__page-total" v-if="productsStore.basket.length > 0">
-          <h2 class="total">Total: $ {{ productsStore.allsum }}</h2>
+          <h2 class="total">Total: ${{ productsStore.basket?.reduce((acc, item) => acc += item.totalSum, 0) }}</h2>
         </div>
       </div>
       <Empty v-if="productsStore.basket.length === 0">

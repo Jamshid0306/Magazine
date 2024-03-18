@@ -39,7 +39,7 @@ const cardEffect = {
       </div>
       <div class="product__blocks">
         <div class="product__blocks-swiper">
-          <Swiper :modules="modules" :effect="'cards'" :loop="true" :grab-cursor="true" :cardEffect="cardEffect">
+          <Swiper :modules="modules" :effect="'cards'" :grab-cursor="true" :cardEffect="cardEffect">
             <SwiperSlide v-for="photo in product.images" :key="photo">
               <img :src="photo" alt="" />
             </SwiperSlide>

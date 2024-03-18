@@ -32,7 +32,7 @@ const productsStore = useProductsStore()
       <div class="nav__icons">
         <RouterLink to="/basket/" class="shop__cart">
           <ShopCartIcon :size="50" />
-          <p class="count" v-if="productsStore.navCount > 0">{{ productsStore.navCount }}</p>
+          <p class="count" v-if="productsStore.basket?.length">{{ productsStore.basket?.length }}</p>
         </RouterLink>
       </div>
     </div>
