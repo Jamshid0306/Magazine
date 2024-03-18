@@ -31,10 +31,10 @@ const cardEffect = {
   <section class="product__single">
     <div class="container">
       <div class="product__single-title">
-        <RouterLink to="/">
+        <RouterLink to="/" class="product__single-title-txt">
           <LeftArrow :size="40" />
+          <div class="about__product-title">About {{ products.title }}</div>
         </RouterLink>
-        <div class="about__product-title">About {{ products.title }}</div>
       </div>
       <div class="product__blocks">
         <div class="product__blocks-swiper">

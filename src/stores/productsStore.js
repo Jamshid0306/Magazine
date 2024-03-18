@@ -45,7 +45,7 @@ export const useProductsStore = defineStore("product", {
           ...product,
           amount: 1,
           get totalSum() {
-            return this.price * this.amount;
+            return  Math.round(this.price * (1 - this.discountPercentage / 100)) * this.amount;
           }
         })
       } else {

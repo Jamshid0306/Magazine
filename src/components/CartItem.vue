@@ -26,7 +26,7 @@ function productCount(product) {
 
 <template>
 
-    <div class="cart__item">
+    <RouterLink :to="'/about/' + product.id" class="cart__item">
         <div class="cart__item-blocks">
             <img class="cart__item-img" :src="product.thumbnail" alt="" />
         </div>
@@ -40,24 +40,22 @@ function productCount(product) {
                 </h3>
             </div>
             <h2 class="product__price">
-                ${{
-                Math.round(product.totalSum * (1 - product.discountPercentage / 100))
-            }}
+            ${{ product.totalSum }}
             </h2>
         </div>
         <div class="product__theme-count-number">
             <button class="product__theme-count-number-b" @click="productCount(product), productsStore.controlAmount()">
                 -
             </button>
-            <!-- <input v-model="inputc" class="product__theme-count-number-n" type="number" name="" id="" /> -->
+            <!-- <input v-model="productsStore.navCount" class="product__theme-count-number-n" type="number" name="" id="" /> -->
             <p class="cart__item-count">{{ product.amount }}</p>
             <button class="product__theme-count-number-b"
                 @click="product.amount++, productsStore.controlAmount(), productsStore.navCount += 1">
                 +
             </button>
         </div>
-        <div class="cart__item-blocks">
+        <RouterLink to="/basket" class="cart__item-blocks">
             <DeleteIcon @click="productsStore.dellBasket(product.id, product.totalSum, product.amount)" :size="45" />
-        </div>
-    </div>
+        </RouterLink>
+    </RouterLink>
 </template>
