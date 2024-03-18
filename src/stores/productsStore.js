@@ -65,16 +65,6 @@ export const useProductsStore = defineStore("product", {
       this.navCount -= amount
       this.allsum -= totalSum
     },
-    getSortedProducts(value) {
-      if (value === "expensive") {
-        this.products?.sort((a, b) => b.price - a.price);
-      }
-      if (value === "rating") {
-        this.products?.sort((a, b) => b.rating - a.rating);
-      } else if (value === "cheap") {
-        this.products?.sort((a, b) => a.price - b.price);
-      }
-    },
     controlAmount() {
       let num = 0;
       this.basket.forEach((product) => {

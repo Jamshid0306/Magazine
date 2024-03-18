@@ -27,15 +27,12 @@ const search = ref("");
 watch(
   search,
   debounce(() => {
-    productsStore.getFetchProducts(currentPage.value * 8 - 8, search.value);
+    if (search.value.length > 0) productsStore.getFetchProducts(0, search.value, 100);
+    else productsStore.getFetchProducts(currentPage.value * 8 - 8, search.value, 12);
   }, 500)
 );
 
 const test = ref("");
-
-const getSortBy = (value) => {
-  productsStore.getSortedProducts(value);
-};
 
 </script>
 
@@ -43,15 +40,7 @@ const getSortBy = (value) => {
   <section class="product">
     <div class="container">
       <form class="form" @submit.prevent="getSortBy(test)">
-        <div class="select">
-          <select class="selector" v-model="test">
-            <option value="" disabled>sort by ...</option>
-            <option value="expensive">sort by price (expensive)</option>
-            <option value="cheap">sort by price (cheap)</option>
-            <option value="rating">sort by rating</option>
-          </select>
-          <button class="select__btn">Sort</button>
-        </div>
+        <!-- <a href="" download="./cv.docx">CV</a> -->
         <div class="search">
           <SearchIcon />
           <input type="search__input" class="search" placeholder="Search..." v-model="search" />
@@ -61,7 +50,7 @@ const getSortBy = (value) => {
         <Product v-for="item in productsStore.products" :key="item.id" :product="item" />
       </div>
       <vue-awesome-paginate class="product__paginate" :total-items="productsStore.total" :items-per-page="8"
-        :max-pages-shown="6" v-model="currentPage" :on-click="onClickHandler" />
+        :max-pages-shown="3" v-model="currentPage" :on-click="onClickHandler" />
     </div>
   </section>
 </template>
