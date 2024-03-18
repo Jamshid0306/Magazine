@@ -4,10 +4,10 @@ import ProductSingle from '@/views/ProductSingle.vue'
 import { useRoute } from 'vue-router'
 
 const route = useRoute()
-const productStore = useProductsStore()
-productStore.getAboutProducts(route.params.id)
+const productsStore = useProductsStore()
+productsStore.getAboutProducts(route.params.id)
 
 </script>
 <template>
-    <ProductSingle v-if="productStore.aboutProductId" :products="productStore.aboutProductId" />
+    <ProductSingle v-if="productsStore.aboutProductId" :product="productsStore.aboutProductId" />
 </template>

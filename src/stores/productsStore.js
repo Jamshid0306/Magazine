@@ -33,6 +33,7 @@ export const useProductsStore = defineStore("product", {
     async getAboutProducts(productId) {
       try {
         const res = await apiProducts.getAboutProducts(productId);
+        console.log(res);
         this.aboutProductId = res;
       } catch (error) {
         console.error(error);

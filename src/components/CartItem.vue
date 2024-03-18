@@ -26,11 +26,11 @@ function productCount(product) {
 
 <template>
 
-    <RouterLink :to="'/about/' + product.id" class="cart__item">
+    <div class="cart__item">
         <div class="cart__item-blocks">
             <img class="cart__item-img" :src="product.thumbnail" alt="" />
         </div>
-        <div class="cart__item-txts">
+        <RouterLink :to="'/about/' + product.id" class="cart__item-txts">
             <h3 class="cart__item-title">{{ product.title }}</h3>
             <p class="cart__item-desc">{{ product.description }}</p>
             <div class="product__percent-block">
@@ -42,13 +42,13 @@ function productCount(product) {
             <h2 class="product__price">
             ${{ product.totalSum }}
             </h2>
-        </div>
+        </RouterLink>
         <div class="product__theme-count-number">
             <button class="product__theme-count-number-b" @click="productCount(product), productsStore.controlAmount()">
                 -
             </button>
-            <!-- <input v-model="productsStore.navCount" class="product__theme-count-number-n" type="number" name="" id="" /> -->
-            <p class="cart__item-count">{{ product.amount }}</p>
+            <input v-model="product.amount" class="product__theme-count-number-n" />
+            <!-- <p class="cart__item-count">{{ product.amount }}</p> -->
             <button class="product__theme-count-number-b"
                 @click="product.amount++, productsStore.controlAmount(), productsStore.navCount += 1">
                 +
@@ -57,5 +57,5 @@ function productCount(product) {
         <RouterLink to="/basket" class="cart__item-blocks">
             <DeleteIcon @click="productsStore.dellBasket(product.id, product.totalSum, product.amount)" :size="45" />
         </RouterLink>
-    </RouterLink>
+    </div>
 </template>
